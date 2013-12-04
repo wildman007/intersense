@@ -55,9 +55,7 @@ void draw(){
     tmp.draw();
   }
 
-  for(int i = 0; i < d.vertices.size();i++){
     
-  }
 }
 
 class Bod{
