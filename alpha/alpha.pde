@@ -20,8 +20,8 @@ import peasy.*;
 import ComputationalGeometry.*;
 import processing.net.*;
 
-PShader blur;
 
+PShader mat;
 
 float rozsah = 2500;
 
@@ -44,34 +44,29 @@ void setup(){
   size(1280,720,P3D);
 
   client = new Client(this, "192.168.23.45", 12345);
+
   body = new ArrayList();
 
 
+  mat = loadShader("frag.glsl", "vert.glsl");
+
   smooth();
-  /*
-     blur = loadShader("frag.glsl");
-     blur.set("blurSize", 10);
-     blur.set("sigma", 5.0f);  
-
-
-     pass1 = createGraphics(width, height, P2D);
-     pass1.noSmooth();  
-
-     pass2 = createGraphics(width, height, P2D);
-     pass2.noSmooth(); 
-   */
 
   surface = new IsoWrap(this);
 
   center = new PVector(0,0,0);
 
   for(int i = 0 ; i < num;i++){
+
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
+  
   }
 
   for(int i = 0 ; i < body.size();i++){
+  
     Bod tmp = (Bod)body.get(i);
     surface.addPt(tmp.pos); 
+  
   }
 
   cam = new PeasyCam(this,200);
@@ -83,12 +78,11 @@ void draw(){
 
   background(0);
 
-
   fill(255,60);
 
-  // Receive data from server
   try{
     ArrayList tmp2 = new ArrayList() ;
+  
     tmp2 = getData(client);
 
     if(tmp2!=null)
@@ -97,9 +91,14 @@ void draw(){
         Bod a = (Bod)tmp2.get(i);
         Bod b = (Bod)body.get(i);
 
+      
+        //if(dist(a.pos.x,a.pos.x,a.pos.z,b.pos.x,b.pos.y,b.pos.z) < 200.0){
+
         b.pos.x += (a.pos.x-b.pos.x)/SMOOTHING;
         b.pos.y += (a.pos.y-b.pos.y)/SMOOTHING;
         b.pos.z += (a.pos.z-b.pos.z)/SMOOTHING;
+        
+        //}
       }
 
     for(int i = 0 ; i < body.size();i++){
@@ -107,7 +106,10 @@ void draw(){
       tmp.draw();
     }
 
-  }catch(Exception e){;}
+  }catch(Exception e)
+  {
+    ;
+  }
 
   try{
     surface = new IsoWrap(this);
@@ -117,22 +119,21 @@ void draw(){
       surface.addPt(tmp.pos); 
     }
 
-
+    shader(mat);
     lights();
-    fill(255);
-    stroke(255);
+    fill(0,190);
+    stroke(255,50);
 
     surface.plot();
 
   }catch(Exception e){
     ;
   }
-
-
 }
 
-//get data from client and parse them
+// get data from client and parse them
 //returns array of Points or null, if no data were received
+
 ArrayList getData(Client c) {
   ArrayList pointArray;
   if (c.available() > 0) {
@@ -142,8 +143,7 @@ ArrayList getData(Client c) {
     pointArray = new ArrayList();
 
     for(int i=0;i<points.length;i++){
-      //   println("P: "+points[i]);
-      int[] data = int(split(points[i], ';')); // Split values into an array
+      int[] data = int(split(points[i], ';'));
       if(data.length==3){
 
         pointArray.add(new Bod(new PVector(
@@ -185,11 +185,5 @@ class Bod{
 
     fill(c);
     noStroke();
-    /*    
-          pushMatrix();
-          translate(pos.x,pos.y,pos.z);
-          box(1);
-          popMatrix();
-     */
   }
 }
