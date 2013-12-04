@@ -1,4 +1,3 @@
-import peasy.*;
 
 
 /** 
@@ -19,6 +18,8 @@ import peasy.*;
 
 
  */
+
+import peasy.*;
 
 
 PeasyCam cam;
@@ -43,7 +44,11 @@ void setup(){
     vec.add(tmp.pos);
   }
 
+  try{
   d.SetData(vec);
+  }catch(Exception e){
+    println(e);
+  }
 
   cam = new PeasyCam(this, 200);
   cam.setMinimumDistance(50);

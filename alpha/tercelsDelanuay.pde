@@ -1,5 +1,6 @@
 import java.util.concurrent.*;
 import java.util.Arrays;
+
 class Line {
   public PVector start, end;
   public Line(PVector start, PVector end) {
@@ -138,6 +139,7 @@ class Tetrahedron {
     }
     return det;
   }
+  
   private void solve(double[][] a, double[] b, int[] ip, double[] x) {
     int n = a.length;
     for(int i = 0; i < n; i++) {
@@ -151,6 +153,7 @@ class Tetrahedron {
       x[i] = t / a[ii][i];
     }
   }
+
   private double gauss(double[][] a, double[] b, double[] x) {
     int n = a.length;
     int[] ip = new int[n];
