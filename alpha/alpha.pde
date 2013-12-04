@@ -20,29 +20,49 @@ import peasy.*;
 import ComputationalGeometry.*;
 import processing.net.*;
 
+PShader blur;
+
+
 float rozsah = 2500;
 
 float SMOOTHING = 20.0;
 
 IsoWrap surface;
-int num = 20;
+int num = 100;
 
 Client client;
 String input;
 
+PGraphics pass1, pass2;
+
 PVector center;
 PeasyCam cam;
-ArrayList body,vec;
+ArrayList body;
 
 void setup(){
 
-  size(1280,720,OPENGL);
+  size(1280,720,P3D);
 
   client = new Client(this, "192.168.23.45", 12345);
   body = new ArrayList();
-  vec = new ArrayList();
+
+
+  smooth();
+  /*
+     blur = loadShader("frag.glsl");
+     blur.set("blurSize", 10);
+     blur.set("sigma", 5.0f);  
+
+
+     pass1 = createGraphics(width, height, P2D);
+     pass1.noSmooth();  
+
+     pass2 = createGraphics(width, height, P2D);
+     pass2.noSmooth(); 
+   */
 
   surface = new IsoWrap(this);
+
   center = new PVector(0,0,0);
 
   for(int i = 0 ; i < num;i++){
@@ -55,13 +75,14 @@ void setup(){
   }
 
   cam = new PeasyCam(this,200);
-  cam.setMinimumDistance(1);
-  cam.setMaximumDistance(500);
+  cam.setMinimumDistance(0.001);
+  cam.setMaximumDistance(5000);
 }
 
 void draw(){
 
   background(0);
+
 
   fill(255,60);
 
@@ -76,20 +97,10 @@ void draw(){
         Bod a = (Bod)tmp2.get(i);
         Bod b = (Bod)body.get(i);
 
-        /*
-           center.x += (map(a.pos.x,-100,100,-rozsah,rozsah)-center.x)/(body.size()+0.0);
-           center.y += (map(a.pos.y,100,-100,-rozsah,rozsah)-center.y)/(body.size()+0.0);
-           center.z += (map(a.pos.z,-100,100,-rozsah,rozsah)-center.z)/(body.size()+0.0);
-         */
-
         b.pos.x += (a.pos.x-b.pos.x)/SMOOTHING;
         b.pos.y += (a.pos.y-b.pos.y)/SMOOTHING;
         b.pos.z += (a.pos.z-b.pos.z)/SMOOTHING;
       }
-
-    /*
-       body = tmp2;
-     */
 
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
@@ -107,15 +118,17 @@ void draw(){
     }
 
 
-    //cam.lookAt(center.x,center.y,center.z);
+    lights();
+    fill(255);
+    stroke(255);
 
-    noFill();
-    stroke(255,75);
     surface.plot();
 
   }catch(Exception e){
     ;
   }
+
+
 }
 
 //get data from client and parse them
