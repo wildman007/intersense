@@ -22,7 +22,7 @@ import processing.net.*;
 
 float rozsah = 2500;
 
-float SMOOTHING = 10.0;
+float SMOOTHING = 40.0;
 
 IsoWrap surface;
 int num = 20;
@@ -35,6 +35,7 @@ PeasyCam cam;
 ArrayList body,vec;
 
 void setup(){
+
   size(1280,720,OPENGL);
 
   client = new Client(this, "192.168.23.45", 12345);
@@ -54,9 +55,8 @@ void setup(){
   }
 
   cam = new PeasyCam(this,200);
-  cam.setMinimumDistance(20);
+  cam.setMinimumDistance(1);
   cam.setMaximumDistance(500);
-
 }
 
 void draw(){
@@ -113,6 +113,7 @@ void draw(){
     noFill();
     stroke(255,75);
     surface.plot();
+
   }catch(Exception e){
     ;
   }
@@ -172,9 +173,11 @@ class Bod{
 
     fill(c);
     noStroke();
-    pushMatrix();
+/*    
+pushMatrix();
     translate(pos.x,pos.y,pos.z);
     box(1);
     popMatrix();
+*/
   }
 }
