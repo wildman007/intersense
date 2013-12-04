@@ -20,6 +20,7 @@ import peasy.*;
 import ComputationalGeometry.*;
 import processing.net.*;
 
+float rozsah = 2600;
 
 IsoSurface surface;
 
@@ -29,32 +30,6 @@ String input;
 
 PeasyCam cam;
 ArrayList body,vec;
-
-//get data from client and parse them
-//returns array of Points or null, if no data were received
-ArrayList getData(Client c) {
-  ArrayList pointArray;
-  if (c.available() > 0) {
-    String input = c.readString();
-    input = input.substring(0, input.indexOf("#")); // Only up to the newline
-    String[] points = split(input, '\n'); // Split values into an array
-    pointArray = new ArrayList();
-
-    for(int i=0;i<points.length;i++){
-      //   println("P: "+points[i]);
-      int[] data = int(split(points[i], ';')); // Split values into an array
-      if(data.length==3){
-        pointArray.add(new Bod(data));
-        println(data);
-      }
-    }
-  }
-  else {
-    pointArray=null;
-  }
-  return pointArray;
-}
-
 
 void setup(){
 
@@ -80,7 +55,7 @@ void setup(){
 
   cam = new PeasyCam(this, 200);
   cam.setMinimumDistance(50);
-  cam.setMaximumDistance(500);
+  cam.setMaximumDistance(3500);
 }
 
 void draw(){
@@ -97,6 +72,8 @@ void draw(){
   // Receive data from server
   try{
     body = getData(client);
+  
+    surface = new IsoSurface(this,new PVector(-200,-200,-200), new PVector(200,200,200), 32);
     surface.plot(mouseX/100000.0);
 
     for(int i = 0 ; i < body.size();i++){
@@ -109,6 +86,37 @@ void draw(){
 
 }
 
+
+
+//get data from client and parse them
+//returns array of Points or null, if no data were received
+ArrayList getData(Client c) {
+  ArrayList pointArray;
+  if (c.available() > 0) {
+    String input = c.readString();
+    input = input.substring(0, input.indexOf("#")); // Only up to the newline
+    String[] points = split(input, '\n'); // Split values into an array
+    pointArray = new ArrayList();
+
+    for(int i=0;i<points.length;i++){
+      //   println("P: "+points[i]);
+      int[] data = int(split(points[i], ';')); // Split values into an array
+      if(data.length==3){
+        
+        pointArray.add(new Bod(new PVector(
+                map(data[0],-rozsah,rozsah,-100,100),
+                map(data[1],-rozsah,rozsah,-100,100),
+                map(data[2],-rozsah,rozsah,-100,100)
+              )));
+        println(data);
+      }
+    }
+  }
+  else {
+    pointArray=null;
+  }
+  return pointArray;
+}
 
 
 class Bod{
