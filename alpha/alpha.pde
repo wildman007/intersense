@@ -18,21 +18,54 @@
 
 import peasy.*;
 import ComputationalGeometry.*;
+import processing.net.*;
+
 
 IsoSurface surface;
+
+Client client;
+String input;
 
 
 PeasyCam cam;
 ArrayList body,vec;
 
+//get data from client and parse them
+//returns array of Points or null, if no data were received
+ArrayList getData(Client c) {
+  ArrayList pointArray;
+  if (c.available() > 0) {
+    String input = c.readString();
+    input = input.substring(0, input.indexOf("#")); // Only up to the newline
+    String[] points = split(input, '\n'); // Split values into an array
+    pointArray = new ArrayList();
+
+    for(int i=0;i<points.length;i++){
+      //   println("P: "+points[i]);
+      int[] data = int(split(points[i], ';')); // Split values into an array
+      if(data.length==3){
+        pointArray.add(new Bod(data));
+        println(data);
+      }
+    }
+  }
+  else {
+    pointArray=null;
+  }
+  return pointArray;
+}
+
+
 void setup(){
 
   size(1280,720,OPENGL);
 
+  client = new Client(this, "192.168.23.45", 12345);
+
   body = new ArrayList();
   vec = new ArrayList();
 
-  surface = new IsoSurface(this,new PVector(-100,-100,-100), new PVector(100,100,100), 16);
+  surface = new IsoSurface(this,new PVector(-200,-200,-200), new PVector(200,200,200), 32);
 
 
   for(int i = 0 ; i < 30;i++){
@@ -56,16 +89,27 @@ void draw(){
 
   rotateY(frameCount/1000.0);
 
-  for(int i = 0 ; i < body.size();i++){
-    Bod tmp = (Bod)body.get(i);
-    tmp.draw();
-  }
-
   fill(255,60);
-  surface.plot(mouseX/100000.0);
 
+
+
+
+  // Receive data from server
+  try{
+    body = getData(client);
+    surface.plot(mouseX/100000.0);
+
+    for(int i = 0 ; i < body.size();i++){
+      Bod tmp = (Bod)body.get(i);
+      tmp.draw();
+    }
+
+
+  }catch(Exception e){;}
 
 }
+
+
 
 class Bod{
   PVector pos;
@@ -74,6 +118,11 @@ class Bod{
   Bod(PVector _pos){
     pos = _pos;
     c = color(255);
+  }
+
+  Bod(int [] data){
+    pos = new PVector(data[0],data[1],data[2]);
+
   }
 
   void draw(){
