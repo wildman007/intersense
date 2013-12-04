@@ -1,4 +1,4 @@
-/** 
+/* 
   Intersense 2013 @ IIM 
 
   This program is free software: you can redistribute it and/or modify
@@ -78,7 +78,6 @@ void setup(){
 void draw(){
 
   background(0);
-
   fill(255,60);
 
   try{
@@ -127,14 +126,7 @@ void draw(){
     ;
   }
 
-  /*
-  cam.beginHUD();
-  tint(255,5);
-  image(g,random(-10,10),random(-10,10));
-  cam.endHUD();
-  */
-
-}
+  }
 
 // get data from client and parse them
 //returns array of Points or null, if no data were received
@@ -191,7 +183,7 @@ class Bod{
     }
 
     fill(c);
- 
     noStroke();
+
   }
 }
