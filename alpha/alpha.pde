@@ -1,5 +1,3 @@
-
-
 /** 
   Intersense 2013 @ IIM 
 
@@ -16,7 +14,6 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
  */
 
 import peasy.*;
@@ -24,7 +21,6 @@ import peasy.*;
 
 PeasyCam cam;
 ArrayList body,vec;
-Delaunay d;
 
 void setup(){
 
@@ -33,7 +29,6 @@ void setup(){
   body = new ArrayList();
   vec = new ArrayList();
 
-  d = new Delaunay();
 
   for(int i = 0 ; i < 30;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
@@ -42,12 +37,6 @@ void setup(){
   for(int i = 0 ; i < body.size();i++){
     Bod tmp = (Bod)body.get(i);
     vec.add(tmp.pos);
-  }
-
-  try{
-  d.SetData(vec);
-  }catch(Exception e){
-    println(e);
   }
 
   cam = new PeasyCam(this, 200);
@@ -65,6 +54,10 @@ void draw(){
     Bod tmp = (Bod)body.get(i);
     tmp.draw();
   }
+
+  for(int i = 0; i < d.vertices.size();i++){
+    
+  }
 }
 
 class Bod{
@@ -77,6 +70,14 @@ class Bod{
   }
 
   void draw(){
+
+    for(int i = 0 ; i < body.size();i++ ){
+  Bod tmp = (Bod)body.get(i);
+      float d = dist(tmp.pos.x,tmp.pos.y,tmp.pos.z,pos.x,pos.y,pos.z);
+      stroke(255,map(d,0,200,25,0));
+      line(tmp.pos.x,tmp.pos.y,tmp.pos.z,pos.x,pos.y,pos.z);
+    }
+
     fill(c);
     noStroke();
     pushMatrix();
