@@ -1,9 +1,7 @@
 
-
 import peasy.*;
 
 PeasyCam cam;
-
 
 ArrayList body;
 
@@ -28,6 +26,7 @@ void draw(){
 
   for(int i = 0 ; i < body.size();i++){
     Bod tmp = (Bod)body.get(i);
+    tmp.draw();
   }
 
 
@@ -45,11 +44,11 @@ class Bod{
   }
 
   void draw(){
-    fill(color);
+    fill(c);
     noStroke();
     pushMatrix();
     translate(pos.x,pos.y,pos.z);
-    rect(10);
+    box(10);
     popMatrix();
 
   }
