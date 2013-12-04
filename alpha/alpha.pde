@@ -23,12 +23,12 @@ import processing.net.*;
 
 PShader mat;
 
-float rozsah = 2500;
+float rozsah = 2600;
 
 float SMOOTHING = 20.0;
 
 IsoWrap surface;
-int num = 100;
+int num = 20;
 
 Client client;
 String input;
@@ -69,9 +69,10 @@ void setup(){
   
   }
 
-  cam = new PeasyCam(this,200);
-  cam.setMinimumDistance(0.001);
+  cam = new PeasyCam(this,400);
+  cam.setMinimumDistance(0.01);
   cam.setMaximumDistance(5000);
+
 }
 
 void draw(){
@@ -114,9 +115,9 @@ void draw(){
       surface.addPt(tmp.pos); 
     }
 
-   //shader(mat);
 
     lights();
+
     fill(0,190);
     stroke(255,50);
 
@@ -126,10 +127,13 @@ void draw(){
     ;
   }
 
+  /*
   cam.beginHUD();
   tint(255,5);
   image(g,random(-10,10),random(-10,10));
   cam.endHUD();
+  */
+
 }
 
 // get data from client and parse them
@@ -148,10 +152,12 @@ ArrayList getData(Client c) {
       if(data.length==3){
 
         pointArray.add(new Bod(new PVector(
-                map(data[0],rozsah,rozsah,-100,100),
-                map(data[1],rozsah,rozsah,100,-100),
-                map(data[2],rozsah,rozsah,-100,100)
+                map(data[0],-rozsah,rozsah,-100,100),
+                map(data[1],-rozsah,rozsah,100,-100),
+                map(data[2],-rozsah,rozsah,-100,100)
                 )));
+      
+
       }
     }
   }
