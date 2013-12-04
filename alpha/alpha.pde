@@ -22,20 +22,41 @@ import peasy.*;
 
 PeasyCam cam;
 
-ArrayList body;
+ArrayList body,vec;
+
+Delaunay d;
+
 
 void setup(){
 
   size(1280,720,OPENGL);
 
   body = new ArrayList();
+  vec = new ArrayList();
+
+
+  d = new Delaunay();
+
+
 
   for(int i = 0 ; i < 30;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
   }
+
+ for(int i = 0 ; i < body.size();i++){
+    Bod tmp = (Bod)body.get(i);
+    vec.add(tmp.pos);
+  }
+
+d.SetData(vec);
+
+
+  
   cam = new PeasyCam(this, 200);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(500);
+
+
 
 }
 
