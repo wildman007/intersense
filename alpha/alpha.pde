@@ -1,3 +1,6 @@
+import peasy.*;
+
+
 /** 
   Intersense 2013 @ IIM 
 
@@ -18,14 +21,9 @@
  */
 
 
-import peasy.*;
-
 PeasyCam cam;
-
 ArrayList body,vec;
-
 Delaunay d;
-
 
 void setup(){
 
@@ -34,30 +32,22 @@ void setup(){
   body = new ArrayList();
   vec = new ArrayList();
 
-
   d = new Delaunay();
-
-
 
   for(int i = 0 ; i < 30;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
   }
 
- for(int i = 0 ; i < body.size();i++){
+  for(int i = 0 ; i < body.size();i++){
     Bod tmp = (Bod)body.get(i);
     vec.add(tmp.pos);
   }
 
-d.SetData(vec);
+  d.SetData(vec);
 
-
-  
   cam = new PeasyCam(this, 200);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(500);
-
-
-
 }
 
 void draw(){
@@ -70,11 +60,7 @@ void draw(){
     Bod tmp = (Bod)body.get(i);
     tmp.draw();
   }
-
-
 }
-
-
 
 class Bod{
   PVector pos;
@@ -94,6 +80,4 @@ class Bod{
     popMatrix();
 
   }
-
-
 }
