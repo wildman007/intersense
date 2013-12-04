@@ -85,12 +85,14 @@ void draw(){
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
 
-      center.x += (tmp.pos.x-center.x)/(body.size()+0.0);
-      center.y += (tmp.pos.y-center.y)/(body.size()+0.0);
-      center.z += (tmp.pos.z-center.z)/(body.size()+0.0);
+      center.x += (map(tmp.pos.x,-100,100,-rozsah,rozsah)-center.x)/(body.size()+1.0);
+      center.y += (map(tmp.pos.y,100,-100,-rozsah,rozsah)-center.y)/(body.size()+1.0);
+      center.z += (map(tmp.pos.z,-100,100,-rozsah,rozsah)-center.z)/(body.size()+1.0);
 
       surface.addPt(tmp.pos); 
     }
+
+println(center.x);
   
     cam.lookAt(center.x,center.y,center.z);
 
@@ -123,7 +125,7 @@ ArrayList getData(Client c) {
                 map(data[1],-rozsah,rozsah,100,-100),
                 map(data[2],-rozsah,rozsah,-100,100)
                 )));
-        println(data);
+        //println(data);
       }
     }
   }
