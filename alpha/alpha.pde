@@ -20,10 +20,12 @@ import peasy.*;
 import ComputationalGeometry.*;
 import processing.net.*;
 
-float rozsah = 2600;
+float rozsah = 2500;
+
+float SMOOTHING = 10.0;
 
 IsoWrap surface;
-int num = 30;
+int num = 20;
 
 Client client;
 String input;
@@ -54,6 +56,7 @@ void setup(){
   cam = new PeasyCam(this,200);
   cam.setMinimumDistance(20);
   cam.setMaximumDistance(500);
+
 }
 
 void draw(){
@@ -66,34 +69,45 @@ void draw(){
   try{
     ArrayList tmp2 = new ArrayList() ;
     tmp2 = getData(client);
-
+ 
     if(tmp2!=null)
-      body = tmp2;
 
+    for(int i = 0; i < tmp2.size();i++){
+      Bod a = (Bod)tmp2.get(i);
+      Bod b = (Bod)body.get(i);
+
+/*
+      center.x += (map(a.pos.x,-100,100,-rozsah,rozsah)-center.x)/(body.size()+0.0);
+      center.y += (map(a.pos.y,100,-100,-rozsah,rozsah)-center.y)/(body.size()+0.0);
+      center.z += (map(a.pos.z,-100,100,-rozsah,rozsah)-center.z)/(body.size()+0.0);
+*/
+
+      b.pos.x += (a.pos.x-b.pos.x)/SMOOTHING;
+      b.pos.y += (a.pos.y-b.pos.y)/SMOOTHING;
+      b.pos.z += (a.pos.z-b.pos.z)/SMOOTHING;
+    }
+
+/*
+      body = tmp2;
+*/
 
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
       tmp.draw();
     }
-
-
-  }catch(Exception e){;}
+ 
+ }catch(Exception e){;}
 
   try{
     surface = new IsoWrap(this);
 
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
-
-      center.x += (map(tmp.pos.x,-100,100,-rozsah,rozsah)-center.x)/(body.size()+1.0);
-      center.y += (map(tmp.pos.y,100,-100,-rozsah,rozsah)-center.y)/(body.size()+1.0);
-      center.z += (map(tmp.pos.z,-100,100,-rozsah,rozsah)-center.z)/(body.size()+1.0);
-
       surface.addPt(tmp.pos); 
     }
 
-println(center.x);
-  
+    println(center.x);
+
     cam.lookAt(center.x,center.y,center.z);
 
     noFill();
@@ -103,7 +117,6 @@ println(center.x);
     ;
   }
 }
-
 
 //get data from client and parse them
 //returns array of Points or null, if no data were received
@@ -125,7 +138,6 @@ ArrayList getData(Client c) {
                 map(data[1],-rozsah,rozsah,100,-100),
                 map(data[2],-rozsah,rozsah,-100,100)
                 )));
-        //println(data);
       }
     }
   }
