@@ -22,7 +22,7 @@ import processing.net.*;
 
 float rozsah = 2500;
 
-float SMOOTHING = 30.0;
+float SMOOTHING = 20.0;
 
 IsoWrap surface;
 int num = 20;
@@ -106,9 +106,8 @@ void draw(){
       surface.addPt(tmp.pos); 
     }
 
-    println(center.x);
 
-    cam.lookAt(center.x,center.y,center.z);
+    //cam.lookAt(center.x,center.y,center.z);
 
     noFill();
     stroke(255,75);
