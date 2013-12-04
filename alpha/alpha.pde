@@ -1,5 +1,8 @@
 
 
+import peasy.*;
+
+PeasyCam cam;
 
 
 ArrayList body;
@@ -13,6 +16,9 @@ void setup(){
   for(int i = 0 ; i < 30;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
   }
+  cam = new PeasyCam(this, 100);
+  cam.setMinimumDistance(50);
+  cam.setMaximumDistance(500);
 }
 
 void draw(){
