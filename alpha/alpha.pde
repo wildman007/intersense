@@ -105,7 +105,7 @@ ArrayList getData(Client c) {
         
         pointArray.add(new Bod(new PVector(
                 map(data[0],-rozsah,rozsah,-100,100),
-                map(data[1],-rozsah,rozsah,-100,100),
+                map(data[1],-rozsah,rozsah,100,-100),
                 map(data[2],-rozsah,rozsah,-100,100)
               )));
         println(data);
