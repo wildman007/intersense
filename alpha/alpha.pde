@@ -23,11 +23,12 @@ import processing.net.*;
 float rozsah = 2600;
 
 IsoWrap surface;
+int num = 30;
 
 Client client;
 String input;
 
-
+PVector center;
 PeasyCam cam;
 ArrayList body,vec;
 
@@ -36,16 +37,14 @@ void setup(){
   size(1280,720,OPENGL);
 
   client = new Client(this, "192.168.23.45", 12345);
-
   body = new ArrayList();
   vec = new ArrayList();
 
-  surface = new IsoWrap(this);//Surface(this,new PVector(-200,-200,-200), new PVector(200,200,200), 32);
+  surface = new IsoWrap(this);
+  center = new PVector(0,0,0);
 
-
-  for(int i = 0 ; i < 30;i++){
+  for(int i = 0 ; i < num;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
-
   }
 
   for(int i = 0 ; i < body.size();i++){
@@ -59,10 +58,9 @@ void setup(){
 }
 
 void draw(){
-
   background(0);
 
-  rotateY(frameCount/1000.0);
+  cam.lookAt(center.x,center.y,center.z);
 
   fill(255,60);
 
@@ -88,9 +86,14 @@ void draw(){
 
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
+
+      center.x += (tmp.pos.x-center.x)/(body.size()+0.0);
+      center.y += (tmp.pos.y-center.y)/(body.size()+0.0);
+      center.z += (tmp.pos.z-center.z)/(body.size()+0.0);
+
       surface.addPt(tmp.pos); 
     }
- 
+
     noFill();
     stroke(255,75);
     surface.plot();
