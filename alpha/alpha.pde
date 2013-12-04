@@ -91,14 +91,9 @@ void draw(){
         Bod a = (Bod)tmp2.get(i);
         Bod b = (Bod)body.get(i);
 
-      
-        //if(dist(a.pos.x,a.pos.x,a.pos.z,b.pos.x,b.pos.y,b.pos.z) < 200.0){
-
         b.pos.x += (a.pos.x-b.pos.x)/SMOOTHING;
         b.pos.y += (a.pos.y-b.pos.y)/SMOOTHING;
         b.pos.z += (a.pos.z-b.pos.z)/SMOOTHING;
-        
-        //}
       }
 
     for(int i = 0 ; i < body.size();i++){
@@ -130,6 +125,11 @@ void draw(){
   }catch(Exception e){
     ;
   }
+
+  cam.beginHUD();
+  tint(255,5);
+  image(g,random(-10,10),random(-10,10));
+  cam.endHUD();
 }
 
 // get data from client and parse them
