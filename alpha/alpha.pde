@@ -14,7 +14,7 @@ void setup(){
   for(int i = 0 ; i < 30;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
   }
-  cam = new PeasyCam(this, 100);
+  cam = new PeasyCam(this, 200);
   cam.setMinimumDistance(50);
   cam.setMaximumDistance(500);
 }
@@ -23,6 +23,7 @@ void draw(){
 
   background(0);
 
+  rotateY(frameCount/1000.0);
 
   for(int i = 0 ; i < body.size();i++){
     Bod tmp = (Bod)body.get(i);
