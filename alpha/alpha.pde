@@ -22,7 +22,7 @@ import processing.net.*;
 
 float rozsah = 2500;
 
-float SMOOTHING = 40.0;
+float SMOOTHING = 30.0;
 
 IsoWrap surface;
 int num = 20;
@@ -69,34 +69,34 @@ void draw(){
   try{
     ArrayList tmp2 = new ArrayList() ;
     tmp2 = getData(client);
- 
+
     if(tmp2!=null)
 
-    for(int i = 0; i < tmp2.size();i++){
-      Bod a = (Bod)tmp2.get(i);
-      Bod b = (Bod)body.get(i);
+      for(int i = 0; i < tmp2.size();i++){
+        Bod a = (Bod)tmp2.get(i);
+        Bod b = (Bod)body.get(i);
 
-/*
-      center.x += (map(a.pos.x,-100,100,-rozsah,rozsah)-center.x)/(body.size()+0.0);
-      center.y += (map(a.pos.y,100,-100,-rozsah,rozsah)-center.y)/(body.size()+0.0);
-      center.z += (map(a.pos.z,-100,100,-rozsah,rozsah)-center.z)/(body.size()+0.0);
-*/
+        /*
+           center.x += (map(a.pos.x,-100,100,-rozsah,rozsah)-center.x)/(body.size()+0.0);
+           center.y += (map(a.pos.y,100,-100,-rozsah,rozsah)-center.y)/(body.size()+0.0);
+           center.z += (map(a.pos.z,-100,100,-rozsah,rozsah)-center.z)/(body.size()+0.0);
+         */
 
-      b.pos.x += (a.pos.x-b.pos.x)/SMOOTHING;
-      b.pos.y += (a.pos.y-b.pos.y)/SMOOTHING;
-      b.pos.z += (a.pos.z-b.pos.z)/SMOOTHING;
-    }
+        b.pos.x += (a.pos.x-b.pos.x)/SMOOTHING;
+        b.pos.y += (a.pos.y-b.pos.y)/SMOOTHING;
+        b.pos.z += (a.pos.z-b.pos.z)/SMOOTHING;
+      }
 
-/*
-      body = tmp2;
-*/
+    /*
+       body = tmp2;
+     */
 
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
       tmp.draw();
     }
- 
- }catch(Exception e){;}
+
+  }catch(Exception e){;}
 
   try{
     surface = new IsoWrap(this);
@@ -173,11 +173,11 @@ class Bod{
 
     fill(c);
     noStroke();
-/*    
-pushMatrix();
-    translate(pos.x,pos.y,pos.z);
-    box(1);
-    popMatrix();
-*/
+    /*    
+          pushMatrix();
+          translate(pos.x,pos.y,pos.z);
+          box(1);
+          popMatrix();
+     */
   }
 }
