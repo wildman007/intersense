@@ -101,7 +101,6 @@ void draw(){
 }
 
 
-
 //get data from client and parse them
 //returns array of Points or null, if no data were received
 ArrayList getData(Client c) {
