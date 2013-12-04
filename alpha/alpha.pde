@@ -22,7 +22,7 @@ import processing.net.*;
 
 float rozsah = 2600;
 
-IsoSurface surface;
+IsoWrap surface;
 
 Client client;
 String input;
@@ -40,7 +40,7 @@ void setup(){
   body = new ArrayList();
   vec = new ArrayList();
 
-  surface = new IsoSurface(this,new PVector(-200,-200,-200), new PVector(200,200,200), 32);
+  surface = new IsoWrap(this);//Surface(this,new PVector(-200,-200,-200), new PVector(200,200,200), 32);
 
 
   for(int i = 0 ; i < 30;i++){
@@ -50,7 +50,7 @@ void setup(){
 
   for(int i = 0 ; i < body.size();i++){
     Bod tmp = (Bod)body.get(i);
-    surface.addPoint(tmp.pos); 
+    surface.addPt(tmp.pos); 
   }
 
   cam = new PeasyCam(this, 200);
@@ -71,10 +71,12 @@ void draw(){
 
   // Receive data from server
   try{
-    body = getData(client);
-  
-    surface = new IsoSurface(this,new PVector(-200,-200,-200), new PVector(200,200,200), 32);
-    surface.plot(mouseX/100000.0);
+    ArrayList tmp2 = new ArrayList() ;
+    tmp2 = getData(client);
+
+    if(tmp2!=null)
+      body = tmp2;
+
 
     for(int i = 0 ; i < body.size();i++){
       Bod tmp = (Bod)body.get(i);
@@ -84,6 +86,17 @@ void draw(){
 
   }catch(Exception e){;}
 
+  try{
+    surface = new IsoWrap(this);
+
+    for(int i = 0 ; i < body.size();i++){
+      Bod tmp = (Bod)body.get(i);
+      surface.addPt(tmp.pos); 
+    }
+ 
+    fill(255,120);
+    surface.plot();
+  }catch(Exception e){;}
 }
 
 
@@ -102,12 +115,12 @@ ArrayList getData(Client c) {
       //   println("P: "+points[i]);
       int[] data = int(split(points[i], ';')); // Split values into an array
       if(data.length==3){
-        
+
         pointArray.add(new Bod(new PVector(
                 map(data[0],-rozsah,rozsah,-100,100),
                 map(data[1],-rozsah,rozsah,100,-100),
                 map(data[2],-rozsah,rozsah,-100,100)
-              )));
+                )));
         println(data);
       }
     }
