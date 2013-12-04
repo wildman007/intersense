@@ -1,5 +1,7 @@
 
 
+
+
 ArrayList body;
 
 void setup(){
@@ -18,6 +20,9 @@ void draw(){
   background(0);
 
 
+  for(int i = 0 ; i < body.size();i++){
+    Bod tmp = (Bod)body.get(i);
+  }
 
 
 }
@@ -26,9 +31,21 @@ void draw(){
 
 class Bod{
   PVector pos;
+  color c;
 
   Bod(PVector _pos){
-  pos = _pos;
+    pos = _pos;
+    c = color(255);
+  }
+
+  void draw(){
+    fill(color);
+    noStroke();
+    pushMatrix();
+    translate(pos.x,pos.y,pos.z);
+    rect(10);
+    popMatrix();
+
   }
 
 
