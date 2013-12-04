@@ -66,9 +66,6 @@ void draw(){
 
   fill(255,60);
 
-
-
-
   // Receive data from server
   try{
     ArrayList tmp2 = new ArrayList() ;
@@ -94,7 +91,8 @@ void draw(){
       surface.addPt(tmp.pos); 
     }
  
-    fill(255,120);
+    noFill();
+    stroke(255,75);
     surface.plot();
   }catch(Exception e){;}
 }
