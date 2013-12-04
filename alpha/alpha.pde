@@ -91,6 +91,5 @@ class Bod{
     translate(pos.x,pos.y,pos.z);
     box(1);
     popMatrix();
-
   }
 }
