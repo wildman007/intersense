@@ -17,6 +17,9 @@
  */
 
 import peasy.*;
+import ComputationalGeometry.*;
+
+IsoSurface surface;
 
 
 PeasyCam cam;
@@ -29,14 +32,17 @@ void setup(){
   body = new ArrayList();
   vec = new ArrayList();
 
+  surface = new IsoSurface(this,new PVector(-100,-100,-100), new PVector(100,100,100), 16);
+
 
   for(int i = 0 ; i < 30;i++){
     body.add(new Bod(new PVector(random(-100,100),random(-100,100),random(-100,100))));
+
   }
 
   for(int i = 0 ; i < body.size();i++){
     Bod tmp = (Bod)body.get(i);
-    vec.add(tmp.pos);
+    surface.addPoint(tmp.pos); 
   }
 
   cam = new PeasyCam(this, 200);
@@ -55,7 +61,10 @@ void draw(){
     tmp.draw();
   }
 
-    
+  fill(255,60);
+  surface.plot(mouseX/100000.0);
+
+
 }
 
 class Bod{
@@ -70,7 +79,7 @@ class Bod{
   void draw(){
 
     for(int i = 0 ; i < body.size();i++ ){
-  Bod tmp = (Bod)body.get(i);
+      Bod tmp = (Bod)body.get(i);
       float d = dist(tmp.pos.x,tmp.pos.y,tmp.pos.z,pos.x,pos.y,pos.z);
       stroke(255,map(d,0,200,25,0));
       line(tmp.pos.x,tmp.pos.y,tmp.pos.z,pos.x,pos.y,pos.z);
