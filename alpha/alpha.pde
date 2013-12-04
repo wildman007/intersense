@@ -33,7 +33,6 @@ PeasyCam cam;
 ArrayList body,vec;
 
 void setup(){
-
   size(1280,720,OPENGL);
 
   client = new Client(this, "192.168.23.45", 12345);
@@ -52,15 +51,14 @@ void setup(){
     surface.addPt(tmp.pos); 
   }
 
-  cam = new PeasyCam(this, 200);
+  cam = new PeasyCam(this,200);
   cam.setMinimumDistance(20);
   cam.setMaximumDistance(500);
 }
 
 void draw(){
-  background(0);
 
-  cam.lookAt(center.x,center.y,center.z);
+  background(0);
 
   fill(255,60);
 
@@ -93,11 +91,15 @@ void draw(){
 
       surface.addPt(tmp.pos); 
     }
+  
+    cam.lookAt(center.x,center.y,center.z);
 
     noFill();
     stroke(255,75);
     surface.plot();
-  }catch(Exception e){;}
+  }catch(Exception e){
+    ;
+  }
 }
 
 
@@ -143,7 +145,6 @@ class Bod{
 
   Bod(int [] data){
     pos = new PVector(data[0],data[1],data[2]);
-
   }
 
   void draw(){
