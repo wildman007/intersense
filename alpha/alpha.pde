@@ -119,7 +119,8 @@ void draw(){
       surface.addPt(tmp.pos); 
     }
 
-    shader(mat);
+   //shader(mat);
+
     lights();
     fill(0,190);
     stroke(255,50);
@@ -147,9 +148,9 @@ ArrayList getData(Client c) {
       if(data.length==3){
 
         pointArray.add(new Bod(new PVector(
-                map(data[0],-rozsah,rozsah,-100,100),
-                map(data[1],-rozsah,rozsah,100,-100),
-                map(data[2],-rozsah,rozsah,-100,100)
+                map(data[0],rozsah,rozsah,-100,100),
+                map(data[1],rozsah,rozsah,100,-100),
+                map(data[2],rozsah,rozsah,-100,100)
                 )));
       }
     }
@@ -162,6 +163,7 @@ ArrayList getData(Client c) {
 
 
 class Bod{
+
   PVector pos;
   color c;
 
@@ -175,7 +177,6 @@ class Bod{
   }
 
   void draw(){
-
     for(int i = 0 ; i < body.size();i++ ){
       Bod tmp = (Bod)body.get(i);
       float d = dist(tmp.pos.x,tmp.pos.y,tmp.pos.z,pos.x,pos.y,pos.z);
@@ -184,6 +185,7 @@ class Bod{
     }
 
     fill(c);
+ 
     noStroke();
   }
 }
