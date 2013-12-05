@@ -20,7 +20,7 @@ IIM instalace / coding session - grafická část
 
 * Upravujte kód dle libosti
 
-* Často commitujte i malé změny `git commit`, ideálně i krátce popisujte, co jste v kódu změnili
+* Komitujte i malé změny `git commit`, ideálně i krátce popisujte, co jste v kódu změnili
 
 * Pushněte `git push` do svého vzdáleného repozitáře
 
