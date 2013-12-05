@@ -1,0 +1,17 @@
+libraries
+tools
+modes
+ports
+android*
+render
+applet
+web-export
+application*
+*.zip
+*.mp4
+*.mpg
+*.mpeg
+*.avi
+*.mov
+*.swp
+*.swo
