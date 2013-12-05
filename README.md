@@ -29,9 +29,9 @@ IIM instalace / coding session - grafická část
 
 ##Konakt
 
-Případně se mě prosím neostýchejte kontaktovat přes [e-mail](mailto:krystof.pesek@gmail.com).
+Případně se mě prosím neostýchejte kontaktovat přes [krystof.pesek@gmail.com](mailto:krystof.pesek@gmail.com).
 
 
 Happy hacking!
 
-Kryštof
+*--Kryštof*
