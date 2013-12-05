@@ -16,7 +16,7 @@ IIM instalace / coding session - grafická část
 
 * Přes `git clone git://foo.bar` naklonujte (již vlastní) fornkutý repoziář
 
-* Ideálně vytvořte svoji branch `git branch newFeaure`
+* Ideálně vytvořte svoji branch `git branch newFeature`
 
 * Upravujte kód dle libosti
 
