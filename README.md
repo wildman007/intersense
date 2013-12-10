@@ -9,6 +9,13 @@ IIM instalace / coding session - grafická část
   [Peasycam](http://mrfeinberg.com/peasycam/)
 
   [ComputationalGeomery](http://thecloudlab.org/processing/library.html)
+
+##Dependence / Java knihovny
+  [3dsense API](http://3dsense.org/)
+
+  [Processing](http://processing.org/)
+
+  [OpenNI **1.5.4.0 ! this version is required**](https://github.com/OpenNI/OpenNI/tree/Unstable-1.5.4.0)
   
 ##Jak nejlépe spolupracovat?
 
