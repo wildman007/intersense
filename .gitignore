@@ -15,3 +15,4 @@ application*
 *.mov
 *.swp
 *.swo
+.DS_Store
