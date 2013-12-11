@@ -18,13 +18,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.javaml.clustering.Clusterer;
-import net.sf.javaml.clustering.KMeans;
-import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.DenseInstance;
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.tools.data.FileHandler;
+//import net.sf.javaml.clustering.Clusterer;
+//import net.sf.javaml.clustering.KMeans;
+//import net.sf.javaml.core.Dataset;
+//import net.sf.javaml.core.DefaultDataset;
+//import net.sf.javaml.core.DenseInstance;
+//import net.sf.javaml.core.Instance;
+//import net.sf.javaml.tools.data.FileHandler;
 import org.OpenNI.Point3D;
 import processing.core.PApplet;
 import processing.net.*;
@@ -47,7 +47,7 @@ public class WalkerExample extends PApplet {
     int MAX_Z = 3000;
     int MIN_Y = -1000;
     Server s;
-    private Dataset data;
+//    private Dataset data;
     private ArrayList<Vector3D> pointsOut=new ArrayList<>();
     
     
@@ -70,7 +70,7 @@ public class WalkerExample extends PApplet {
 
         s = new Server(this, 12345); // Start a simple server on a port
 //        s.run();
-       data = new DefaultDataset();
+//       data = new DefaultDataset();
 
     }
 
