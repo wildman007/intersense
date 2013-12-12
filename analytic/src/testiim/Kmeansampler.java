@@ -22,7 +22,7 @@ public class Kmeansampler {
     
     
     public List<Vector3D> kmeansSample(List<Vector3D> data, int k){
-        List<Vector3D> result = new ArrayList<>();
+        List<Vector3D> result = new ArrayList<Vector3D>();
         points = new double[data.size()][3];
         for (int i = 0; i < data.size(); i++) {
             Vector3D instance = data.get(i);
@@ -67,8 +67,8 @@ public class Kmeansampler {
     
     private int[] findClosestPairs(double[][] dists) {
         int k = dists.length;
-        HashSet<Integer> hs = new HashSet<>();
-        HashSet<Integer> hs2 = new HashSet<>();
+        HashSet<Integer> hs = new HashSet<Integer>();
+        HashSet<Integer> hs2 = new HashSet<Integer>();
         int[] pairs = new int[k];
         for (int h = 0; h < k; h++) {
             int mini = 0, minj = 0;

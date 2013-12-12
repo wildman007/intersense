@@ -31,7 +31,7 @@ public class Downsampler {
     }
 
     public List<Vector3D> downsampleRand(List<Vector3D> datain, int numSamples){
-        ArrayList<Vector3D> list = new ArrayList<>();
+        ArrayList<Vector3D> list = new ArrayList<Vector3D>();
         Random rand = new Random();
         for (int i = 0; i<numSamples; i++){
             int r = rand.nextInt(datain.size());
@@ -57,7 +57,7 @@ public class Downsampler {
 //                }
 //            }
 //        }
-        ArrayList<Vector3D> list = new ArrayList<>();
+        ArrayList<Vector3D> list = new ArrayList<Vector3D>();
 //        Random rand = new Random();
 //        for (int i = 0; i<numSamples; i++){
 //            int r = rand.nextInt(datain.size());

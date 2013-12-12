@@ -34,7 +34,7 @@ public class KmeanImp extends PApplet {
     Server s;
 //    private Dataset data;
     private ArrayList<Vector3D> data;
-    private List<Vector3D> pointsOut=new ArrayList<>();
+    private List<Vector3D> pointsOut=new ArrayList<Vector3D>();
 
     
     private Downsampler ds = new Downsampler();
@@ -56,7 +56,7 @@ public class KmeanImp extends PApplet {
         s = new Server(this, 12345); // Start a simple server on a port
 //        s.run();
 //       data = new DefaultDataset();
-        data = new ArrayList<>();
+        data = new ArrayList<Vector3D>();
 
     }
 

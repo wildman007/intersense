@@ -1,4 +1,4 @@
-package iimclient;
+package testiim;
 
 import com.sense3d.api.math.Vector3D;
 
