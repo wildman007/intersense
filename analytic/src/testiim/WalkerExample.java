@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package testiim;
 
 import com.sense3d.api.math.Vector3D;
@@ -36,14 +32,12 @@ public class WalkerExample extends PApplet {
     int resx = 640;
     int resy = 480;
     protected int nthpoint = 50;
-    int MAX_Z = 3000;
-    int MIN_Y = -1000;
     Server s;
-//    private Dataset data;
+    
     private ArrayList<Vector3D> pointsOut=new ArrayList<Vector3D>();
     List<Vector3D> points = new ArrayList<Vector3D>();
     
-    int minX = -300, minY = -300, minZ = 0, maxX = 400, maxY = 200, maxZ = 1000, step = 50;
+    int minX = -300, minY = -300, minZ = 50, maxX = 400, maxY = 200, maxZ = 1000, step = 50;
     
     @Override
     public void setup() {
@@ -75,10 +69,11 @@ public class WalkerExample extends PApplet {
         } catch (SensorException ex) {
             Logger.getLogger(WalkerExample.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+	
+        filterPoints(depthMap);
 	stroke(255);
         strokeWeight(2);
-        drawPoints(depthMap);
+	drawPoints();
 	
 	stroke(0, 250, 0);
 	strokeWeight(5);
@@ -98,31 +93,28 @@ public class WalkerExample extends PApplet {
         s.write("#");
     }
 
-    private void drawPoints(int[] depthMap) {
-        Vector3D vv = new Vector3D();
-        int c = 0;
+    private void filterPoints(int[] depthMap) {
         for (int x = 0; x < resx; x++) {
             for (int y = 0; y < resy; y++) {
                 int i = x + y * resx;
                 if (i % nthpoint == 0) {
                     int z = depthMap[i];
-                    if (z > 50) {
+                    if (z > minZ) {
                         Vector3D v = new Vector3D(x, y, z);
                         Vector3D v1 = sensor.convertProjectiveToRealWorld(v);
-                        if (v1.getZ() < MAX_Z && v1.getY() > MIN_Y) {
-                            point((float) v1.getX(), (float) v1.getY(), (float) v1.getZ());
-                            vv.add(v1);
+                        if (v1.getZ() < maxZ && v1.getY() > minY) {
 			    points.add(v1);
-                            c++;
                         }
                     }
                 }
             }
         }
-        vv.divide(c);
-        stroke(255, 0, 0);
-        
-
+    }
+    
+    private void drawPoints() {
+	for(Vector3D p : points) {
+	    point((float) p.getX(), (float) p.getY(), (float) p.getZ());
+	}
     }
 
 
